@@ -1,0 +1,10 @@
+"hypothesis","metric","n","test","statistic","df_approx","p_value","effect_size","effect_label","median_MR","median_VBT","mean_MR","mean_VBT","p_fdr","sig_raw","sig_fdr"
+"H11","RMSSD",12,"paired_t",0.4892,11,0.63431,0.141,"Cohen_dz",-8.6659,-4.2327,-5.441,-12.2628,0.81554,FALSE,FALSE
+"H11","SDNN",12,"paired_t",0.7449,11,0.47193,0.215,"Cohen_dz",-2.3546,-5.0919,-2.9581,-10.5552,0.81554,FALSE,FALSE
+"H11","HF_log",17,"paired_t",-1.0806,16,0.29588,-0.262,"Cohen_dz",-0.5447,-0.3143,-0.7771,-0.3556,0.81554,FALSE,FALSE
+"H11","LF_log",17,"wilcoxon_SR",73,NA,0.88707,-0.04,"rank_biserial_r",-0.1484,0.0361,-0.2728,0.1822,0.88707,FALSE,FALSE
+"H11","LF_nu",17,"wilcoxon_SR",94,NA,0.42097,0.201,"rank_biserial_r",15.9832,2.623,10.8454,1.5996,0.81554,FALSE,FALSE
+"H11","HF_nu",17,"wilcoxon_SR",72,NA,0.84982,-0.052,"rank_biserial_r",-7.6184,-2.3875,-5.5953,-1.5477,0.88707,FALSE,FALSE
+"H11","LF_HF_ratio",17,"paired_t",0.5194,16,0.61061,0.126,"Cohen_dz",0.6564,0.3394,0.6892,0.3175,0.81554,FALSE,FALSE
+"H11","SampEn",17,"paired_t",-2.0369,16,0.05855,-0.494,"Cohen_dz",-0.3402,-0.0298,-0.2696,0.0634,0.52695,FALSE,FALSE
+"H11","alpha1",17,"paired_t",0.4959,16,0.62668,0.12,"Cohen_dz",0.0979,-0.0018,0.155,0.0825,0.81554,FALSE,FALSE
