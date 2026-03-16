@@ -113,7 +113,8 @@ For each HRV metric and lactate variable, at each epoch slot:
 project_root/
 ├── config.py          # ← edit PROJECT_ROOT here before running
 ├── hrv_utils.py       # helper functions (imported by pipeline)
-├── hrv_pipeline.py    # main script — run this
+├── hrv_pipeline.py    # main  py script — run this
+├── hrv_testing.R      # main R script — run this
 ├── RM_xlsx/           # *_RM.xlsx files
 ├── VPM_xlsx/          # *_VPM.xlsx files
 ├── Lactate.xlsx
