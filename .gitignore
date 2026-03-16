@@ -1,0 +1,25 @@
+# ── Claude Code instructions (local only, not for version control) ────────────
+CLAUDE.md
+
+# ── Python cache ──────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+
+# ── Raw data (large Excel files) ──────────────────────────────────────────────
+RM_xlsx/
+VPM_xlsx/
+lactate/
+
+# ── Pipeline outputs (reproducible from source) ───────────────────────────────
+outputs/
+
+# ── OS / editor noise ─────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+.Rhistory
+.RData
+.Rproj.user/

@@ -342,8 +342,10 @@ source("hrv_testing.R")
 
 ```
 
-## 9. Summary results
+## 9. Summary Results
 
-Detailed description of the employed statistics : [Results_description](docs/dictionary_results.md)
+Detailed description of the employed statistics : [Description of each csv file](docs/dictionary_results.md)
 
-Results summary : [Results_description](docs/results_summary.md)
+Results summary : [Results statistical tests](docs/results_summary.md)
+
+Download results over google drive: [Google Drive](https://drive.google.com/drive/folders/17uMq9LElNB9oPOZ_6ZK1BKbPY4bofbGv?usp=sharing)
