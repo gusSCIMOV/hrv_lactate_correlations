@@ -1,4 +1,7 @@
 # HRV Analysis — Results Summary
+
+[Back to README](../README.md)
+
 ## MR vs VBT Resistance Training Protocols in Women
 
 **Design:** Within-subjects crossover | **N:** 21–27 (varies by analysis) | **Date:** 2026-03-16
@@ -307,7 +310,7 @@ The LASSO result is interpretively important rather than a methodological failur
 
 ---
 
-## Narrative Summary
+<!-- ## Narrative Summary
 
 MR and VBT produced statistically equivalent pre-exercise physiological states across all HRV and lactate measures, confirming the integrity of the crossover design.
 
@@ -317,7 +320,7 @@ In the immediate post-exercise period, VBT showed a paradoxically lower vagal ti
 
 The metabolic results confirmed that MR generates substantially higher post-exercise lactate (median 6.9 vs 5.2 mmol/L, dz = 0.98) and accumulated lactate (3.3 vs 2.5 mmol/L, dz = 0.92). Despite this clear metabolic difference, ΔHRV metrics could not predict post-exercise lactate in the LASSO model, owing to extreme multicollinearity among HRV predictors and a small lactate sample (N = 16 complete cases). The only coupling signal identified was a VBT-specific moderate negative correlation between lactate accumulation and the 3-min SDNN orthostatic response (ρ = −0.70), which was significantly stronger under VBT than MR (Fisher's Z p = 0.014) and survived partial correlation control for baseline lactate.
 
-Taken together, the findings indicate that VBT constitutes a physiologically distinct and metabolically less demanding training stimulus than MR, producing faster autonomic recovery and lower lactate accumulation while achieving equivalent pre-exercise ANS baselines. The protocol-specific nature of the autonomic–metabolic coupling observed in H14 suggests that the relationship between lactate and HRV may be more informative within a given training modality than across modalities.
+Taken together, the findings indicate that VBT constitutes a physiologically distinct and metabolically less demanding training stimulus than MR, producing faster autonomic recovery and lower lactate accumulation while achieving equivalent pre-exercise ANS baselines. The protocol-specific nature of the autonomic–metabolic coupling observed in H14 suggests that the relationship between lactate and HRV may be more informative within a given training modality than across modalities. -->
 
 ---
 

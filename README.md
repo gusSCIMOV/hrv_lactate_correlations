@@ -5,6 +5,8 @@
 
 ## 1. HRV ANALYSIS
 
+This is a dedicated repository to storage python and R-based workflow to test HRV-lactates correlations during strengthing protocols
+
 ---
 
 ## 2. Project Goals
