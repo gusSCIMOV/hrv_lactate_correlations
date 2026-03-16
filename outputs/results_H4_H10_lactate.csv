@@ -1,0 +1,4 @@
+"hypothesis","variable","n","SW_p_diff","test","statistic","df_approx","p_value","effect_size","effect_label","median_MR","median_VBT","mean_MR","mean_VBT"
+"H4","lactate_baseline",18,0.042,"wilcoxon_SR",53.5,NA,0.73312,-0.328,"rank_biserial_r",3,3,2.7333,2.6778
+"H10","lactate_post",17,0.3983,"paired_t",4.0513,16,0.00093,0.983,"Cohen_dz",6.9,5.2,6.9235,5.2647
+"H10","delta_lactate",17,0.6093,"paired_t",3.8105,16,0.00154,0.924,"Cohen_dz",3.3,2.5,4.1,2.4941
