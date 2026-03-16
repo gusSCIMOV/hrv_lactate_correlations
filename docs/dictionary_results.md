@@ -298,3 +298,14 @@ Cook's distance diagnostic from the pre-LASSO OLS fit, flagging potentially infl
 | `cooks_d` | Cook's distance from the OLS fit |
 | `influential` | `TRUE` if Cook's D > 4/N |
 | `sensitivity_excluded` | `"stable"` if LASSO variable selection is unchanged when this observation is excluded; `"selection_changed"` if the selected predictor set differs; `NA` if the sensitivity refit failed |
+
+--
+
+## Caveats for Hypothesis Testing
+
+1. **Crossover / within-subjects design** — use paired or mixed-model approaches with `participant_id` as random effect.
+
+2. **Multiple comparisons** — testing 13+ HRV metrics × 8 epoch slots generates many simultaneous tests. Apply FDR correction (`p.adjust(method="BH")`) within each hypothesis family.
+
+
+---

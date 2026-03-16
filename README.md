@@ -15,7 +15,7 @@ Compare the autonomic nervous system (ANS) response, excercise, recovery phases,
 - **VBT** — Velocity-Based Training (load controlled by movement velocity)
 
 Specifically:
-1. Characterize **ANS temporal dynamics** (pre → exercise → post) for each protocol via HRV metrics
+1. Characterize **HRV temporal dynamics** (pre → exercise → post) for each protocol via HRV metrics
 2. Identify **between-protocol differences** in HRV and lactate at matched time points
 3. Assess **autonomic recovery** completeness and speed post-exercise
 4. Quantify **metabolic-autonomic coupling** via lactate ↔ HRV correlations
@@ -55,6 +55,12 @@ Specifically:
 
 - **As specified within ./config as KEY_METRICS or key HRV metrics (see hypothesis box below)**
 
+```bash
+
+KEY_METRICS = ["RMSSD","SDNN","HF_log","LF_log","LF_nu","HF_nu","LF_HF_ratio","SD1","SampEn","alpha1"]
+
+```
+
 ### 4.4. Orthostatic reactivity (Computed within R)
 
 - pre-exercise orthostatic reactivity (stand_up_inicial_03 and _05 vs lying_inicial)
@@ -81,14 +87,23 @@ For each HRV metric and lactate variable, at each epoch slot:
 | H2 | Short-term Pre-exercise Orthostatic reactivity does not differ between protocols | key HRV metrics (appy FDR) |  `stand_up_inicial_03`, `lying_inicial` |
 | H3 | Medium-term Pre-exercise Orthostatic reactivity does not differ between protocols | key HRV metrics (appy FDR) |  `stand_up_inicial_05`, `lying_inicial` |
 | H4 | Pre-exercise blood lactate does not differ between protocols | `lactate_baseline` | `lying_inicial` |
-| H6 | Exercise-phase ANS trajectory differs between protocols | key HRV metrics (Linear Mixed Model) | `exer n `–`exerN` (trimmed) |
-| H6 | Post-exercise ANS trajectory differs between protocols | key HRV metrics (Linear Mixed Model) | `post n `–`postN` (trimmed) |
-| H7 | Post-exercise resting ANS state differs between protocols | key HRV metrics (apply FDR) | `lying_final` |
+| H7 | Post-exercise resting HRV metrics state differs between protocols | key HRV metrics (apply FDR) | `lying_final` |
 | H8 | Short-term Post-exercise Orthostatic reactivity does not differ between protocols | key HRV metrics (appy FDR) |  `stand_up_final_03`, `lying_final` |
 | H9 | Medium-term Post-exercise Orthostatic reactivity does not differ between protocols | key HRV metrics (appy FDR) |  `stand_up_final_05`, `lying_final` |
 | H10 | Post-exercise  and delta blood lactate (Δlactate) does not differ between protocols | `lactate_post`, `delta_lactate` | `lying_final` |
 
-### 5.2 Pre–Post Changes between Protocol (delta measurements)
+## 5.2 HRV metrics trajectory (MR vs VBT)
+
+**Linear Mixed Models (LMM):** HRV metric ~ protocol * phase_pos + (1|participant_id)
+This naswer:  how does the metric change per epoch as time progresses and on average, across all exercise/recovery epochs, if the metric is higher or lower under VBT compared to MR
+
+| # | Hypothesis | Variables | Epoch(s) |
+|---|---|---|---|
+| H5 | Exercise-phase HRV metrics trajectory differs between protocols | key HRV metrics (Linear Mixed Model) | `exer n `–`exerN` (trimmed) |
+| H6 | Post-exercise HRV metrics trajectory differs between protocols | key HRV metrics (Linear Mixed Model) | `post n `–`postN` (trimmed) |
+
+
+### 5.3 Pre–Post Changes between Protocol (delta measurements)
 
 | # | Hypothesis | Variables | Epoch comparison |
 |---|---|---|---|
@@ -121,14 +136,9 @@ project_root/
 └── outputs/           # all CSVs and figures written here
 ```
 
-| Function | Purpose |
-|---|---|
-| `hrv_pipeline.py` | main script: performs EDA, plots, exports `hrv_long_master.csv` — full long-format DataFrame, `hrv_wide_delta.csv` — one row per participant × protocol with phase-mean HRV + lactate columns |
-| `config.py` | plain Python module-level variables used  in the hrv_pipeline icluding input paths/files. Set `KEY_METRICS` to include specific HRV metrics  |
-| `hrv_utils.py` | Exploratory data analysis  and plot helpers |
+---
 
-
-###  EDA & Visualization (hrv_utils.py)
+###  Exploratory data analysis (EDA) & Visualization (hrv_utils.py)
 
 | Output file | Content |
 |---|---|
@@ -151,6 +161,7 @@ project_root/
 
 - **Python 3.10+** recommended (tested on 3.10)
 - Install dependencies:
+
 ```bash
 pip install pandas numpy matplotlib seaborn scipy openpyxl
 ```
@@ -220,7 +231,7 @@ car::leveneTest(metric ~ protocol)
 rstatix::anova_test()                    # includes Mauchly + GG correction
 ```
 
-### 7.3 Hypothesis Testing Decision Tree
+### 7.3 Hypothesis Testing Decision Tree (H1-H12)
 
 ```
 Single epoch and pre-post (delta) comparison between MR vs VBT:
@@ -284,7 +295,7 @@ Analyses in this section correspond directly to **H13–H15** (§5.4 Metabolic�
 | **Predictor scaling** | All continuous predictors z-scored before fitting (mean = 0, SD = 1) so LASSO penalties are comparable |
 | **LASSO stability** | Bootstrap resampling (500 iterations) to report selection frequency per predictor; only predictors selected in ≥ 50 % of bootstrap samples are considered stable |
 
-**Assumption & diagnostic checks (run on OLS fit prior to LASSO):**
+**Assumption & diagnostic checks:**
 
 | Check | Tool | Threshold / action |
 |---|---|---|
@@ -315,25 +326,10 @@ library(ggpubr)      # publication-ready stat plots
 
 ---
 
-## 8. Caveats for Hypothesis Testing
 
-1. **Crossover / within-subjects design** — use paired or mixed-model approaches with `participant_id` as random effect.
+## 8. R Hypothesis Testing Script (`hrv_testing.R`)
 
-2. **Multiple comparisons** — testing 13+ HRV metrics × 8 epoch slots generates many simultaneous tests. Apply FDR correction (`p.adjust(method="BH")`) within each hypothesis family.
-
-3. **Non-normality expected** — `RMSSD`, `HF_ms2`, `LF_ms2`, and `Total_power` are right-skewed by nature. Use log-transformed versions for parametric tests or default to Wilcoxon signed-rank. Confirm per Shapiro-Wilk before deciding.
-
-4. **Unequal epoch counts** — even after trimming, subjects differ in total exercise/post epochs. The trimmed `master_trimmed` dataset standardises this for trajectory analysis, but the long-format file still reflects real observed data for mixed models (which handle unbalanced designs natively).
-
-5. **Lactate N is smaller** — not all HRV participants have lactate data (27 lactate records vs 21/24 HRV files). Lactate correlations have lower power; interpret effect sizes alongside p-values.
-
-6. **Exercise epoch trimming affects generalisability** — the trimmed dataset represents the shortest protocol's duration. Findings about exercise-phase HRV apply to that common window.
-
----
-
-## 9. R Hypothesis Testing Script (`hrv_testing.R`)
-
-### 9.1 How to Run
+### 8.1 How to Run
 
 **Prerequisite:** run `hrv_pipeline.py` first so that `outputs/hrv_long_master.csv` exists.
 
@@ -344,16 +340,8 @@ source("hrv_testing.R")
 
 ```
 
-### 9.2 What the Script Does (execution order)
+## 9. Summary results
 
-| Step | Action |
-|---|---|
-| 1 | Loads `hrv_long_master.csv`; coerces `protocol` to factor, `phase_pos` to integer, `trimmed` to logical |
-| 2 | Computes **orthostatic reactivity** as % change: `(stand_up − lying) / |lying| × 100` for all 4 orthostatic slots (pre_03, pre_05, post_03, post_05) |
-| 3 | Runs **Shapiro-Wilk** on the paired difference (MR − VBT) per metric × epoch slot → normality decision for each test |
-| 4 | Runs **Levene's test** on raw values at `lying_inicial` and `lying_final` → variance homogeneity check |
-| 5 | Applies **decision tree** per metric: SW p > 0.05 → paired t-test + Cohen's dz; SW p ≤ 0.05 → Wilcoxon signed-rank + rank-biserial r; BH-FDR applied within each hypothesis family |
-| 6 | Fits **Linear Mixed Models** (`lmerTest`) for exercise and post-exercise trajectories: `metric ~ protocol * phase_pos + (1 | participant_id)`, plus LRT for the interaction term |
-| 7 | Exports all results as CSV files to `outputs/` |
+Detailed description of the employed statistics : [Results_description](docs/dictionary_results.md)
 
-[Results_description](docs/dictionary_results.md)
+Results summary : [Results_description](docs/results_summary.md)
